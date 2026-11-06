@@ -1,8 +1,6 @@
 @echo off
 chcp 65001 >nul
-rem Swarm Rebuild: открывает страницу расширений Chrome и папку расширения.
-rem Дальше: включить "Режим разработчика" -> "Загрузить распакованное" -> выбрать открытую папку swarm-rebuild.
-start "" "C:\Program Files\Google\Chrome\Application\chrome.exe" chrome://extensions
-start "" explorer "%~dp0swarm-rebuild"
-echo После установки: на любой странице нажмите Alt+Shift+S или иконку расширения.
-pause
+rem Swarm Rebuild: отдельный профиль Chrome с уже загруженным расширением + демо-страница.
+cd /d "%~dp0"
+start "swarm-demo-server" /min python -m http.server 8860 --bind 127.0.0.1
+node scripts\launch-chrome.mjs http://127.0.0.1:8860/demo/index.html
